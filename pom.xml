@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>SBI</groupId>
+	<artifactId>debitbill</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<!-- サンプルAPが依存するライブラリの定義 - ここから -->
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.microprofile</groupId>
+			<artifactId>microprofile</artifactId>
+			<version>1.4</version>
+			<type>pom</type>
+			<scope>provided</scope>
+		</dependency>
+		<!-- サンプルAPが依存するライブラリの定義 - ここまで -->
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory> <!-- サンプルAPのソースディレクトリ定義 -->
+		<plugins>
+			<!-- サンプルAP用の定義 - ここから -->
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.3.1</version>
+				<configuration>
+					<warSourceDirectory>WebContent</warSourceDirectory>
+				</configuration>
+			</plugin>
+			<!-- サンプルAP用の定義 - ここまで -->
+			<!-- Uber JAR作成ツールプラグインの定義 - ここから -->
+			<plugin>
+				<groupId>com.nec.webotx</groupId>
+				<artifactId>ms-uberjar-maven-plugin</artifactId>
+				<version>10.4</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>package-uberjar</goal>
+							<goal>package-docker</goal>
+						</goals>
+						<!-- ms-uberjar-maven-pluginのconfigration定義はここに追加します -->
+						<!-- <configuration><定義名>設定値<定義名></configuration> -->
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Uber JAR作成ツールのプラグインの定義 - ここまで -->
+		</plugins>
+	</build>
+</project>

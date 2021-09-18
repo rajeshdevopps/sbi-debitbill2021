@@ -1,0 +1,18 @@
+# WebOTX Application Server Docker container image
+
+# Base image
+FROM %%%BASE_IMAGE%%%
+
+# install basic packages
+%%%INSTALL_PACKAGES%%%
+
+# install jdk
+%%%INSTALL_JDK%%%
+
+# Copy and Unpack Uber JAR
+COPY %%%UBERJAR_NAME%%%.jar /
+ENV OTX_UBER_JAR %%%UBERJAR_NAME%%%.jar
+RUN java -jar %%%UBERJAR_NAME%%%.jar --unpack-only --basedir /opt
+
+# Run Uber JAR
+ENTRYPOINT ["java", "-jar", "%%%UBERJAR_NAME%%%.jar", "--basedir", "/opt"]

@@ -1,0 +1,24 @@
+# WebOTX Application Server Docker container image
+
+# Base image
+FROM %%%BASE_IMAGE%%%
+
+# install basic packages
+%%%INSTALL_PACKAGES%%%
+
+# install jdk
+%%%INSTALL_JDK%%%
+
+# Add WebOTX Operation User as non-root
+RUN useradd -u 10001 -g 0 -d / -M -s /sbin/nologin asadm
+
+# Copy and Unpack Uber JAR
+COPY %%%UBERJAR_NAME%%%.jar /
+ENV OTX_UBER_JAR %%%UBERJAR_NAME%%%.jar
+RUN java -jar %%%UBERJAR_NAME%%%.jar --unpack-only --basedir /opt && chown -R asadm /opt/WebOTX && chmod -R g=u /opt/WebOTX
+
+# Change user
+USER asadm
+
+# Run Uber JAR
+ENTRYPOINT ["java", "-jar", "%%%UBERJAR_NAME%%%.jar", "--basedir", "/opt"]
