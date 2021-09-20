@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<client-container>
+  <target-server name="4bda7c11718c" address="localhost" port="7780"/>
+  <log-service file="" level="WARNING"/>
+  <message-security-config auth-layer="SOAP">
+    <!-- turned off by default -->
+    <provider-config class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule" provider-id="XWS_ClientProvider" provider-type="client"> 
+      <request-policy auth-source="content"/>
+      <response-policy auth-source="content"/>
+      <property name="encryption.key.alias" value="s1as"/>
+      <property name="signature.key.alias" value="s1as"/>
+      <property name="dynamic.username.password" value="false"/>
+      <property name="debug" value="false"/>
+    </provider-config>
+    <provider-config class-name="com.sun.xml.wss.provider.ClientSecurityAuthModule" provider-id="ClientProvider" provider-type="client"> 
+      <request-policy auth-source="content"/>
+      <response-policy auth-source="content"/>
+      <property name="encryption.key.alias" value="s1as"/>
+      <property name="signature.key.alias" value="s1as"/>
+      <property name="dynamic.username.password" value="false"/>
+      <property name="debug" value="false"/>
+      <property name="security.config" value="${com.nec.webotx.installRoot}/lib/appclient/wss-client-config-1.0.xml"/>
+    </provider-config>
+  </message-security-config>
+</client-container>

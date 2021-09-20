@@ -1,0 +1,3 @@
+/domain/configs/config[@name='server-config']/admin-service/jmx-connector[@name='jmx_connector'],key-password
+/domain/configs/config[@name='server-config']/admin-service/jmx-connector[@name='jmx_connector'],keystore-password
+/domain/configs/config[@name='server-config']/admin-service/jmx-connector[@name='jmx_connector'],truststore-password

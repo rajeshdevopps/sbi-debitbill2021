@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain application-root="${com.nec.webotx.instanceRoot}/applications" hostname="localhost" log-root="${com.nec.webotx.instanceRoot}/logs" num-config-backup-generations="0" version="20180206">
+    <security-configurations>
+        <authentication-service default="true" name="adminAuth" use-password-credential="true">
+            <security-provider name="spcrealm" provider-name="adminSpc" type="LoginModule">
+                <login-module-config control-flag="sufficient" module-class="com.sun.enterprise.admin.util.AdminLoginModule" name="adminSpecialLM">
+                    <property name="config" value="server-config"/>
+                    <property name="auth-realm" value="admin-realm"/>
+                </login-module-config>
+            </security-provider>
+            <security-provider name="filerealm" provider-name="adminFile" type="LoginModule">
+                <login-module-config control-flag="sufficient" module-class="com.sun.enterprise.security.auth.login.FileLoginModule" name="adminFileLM">
+                    <property name="config" value="server-config"/>
+                    <property name="auth-realm" value="admin-realm"/>
+                </login-module-config>
+            </security-provider>
+        </authentication-service>
+        <authorization-service default="true" name="authorizationService">
+            <security-provider name="simpleAuthorization" provider-name="simpleAuthorizationProvider" type="Simple">
+                <authorization-provider-config name="simpleAuthorizationProviderConfig" support-policy-deploy="false"/>
+            </security-provider>
+        </authorization-service>
+        <role-mapping-service default="true" name="rolemappingService">
+            <security-provider name="simpleRoleMapping" provider-name="simpleRoleMappingProvider" type="Simple">
+                <role-mapping-provider-config name="simpleRoleMappingProviderConfig" support-role-deploy="false"/>
+            </security-provider>
+        </role-mapping-service>
+    </security-configurations>
+    <managed-job-config/>
+    <system-applications/>
+    <applications/>
+    <resources>
+        <jms-resource name="jms-resource"/>
+        <context-service jndi-name="concurrent/__defaultContextService"/>
+        <managed-executor-service jndi-name="concurrent/__defaultManagedExecutorService"/>
+        <managed-scheduled-executor-service jndi-name="concurrent/__defaultManagedScheduledExecutorService"/>
+        <managed-thread-factory jndi-name="concurrent/__defaultManagedThreadFactory"/>
+    </resources>
+    <servers>
+        <server config-ref="server-config" name="server">
+            <property name="profile" value="micro-profile"/>
+            <resource-ref ref="concurrent/__defaultContextService"/>
+            <resource-ref ref="concurrent/__defaultManagedExecutorService"/>
+            <resource-ref ref="concurrent/__defaultManagedScheduledExecutorService"/>
+            <resource-ref ref="concurrent/__defaultManagedThreadFactory"/>
+            <internal-lifecycle-module class-name="com.nec.webotx.appserv.server.internal.dbcontroller.DBControllerLifecycle" enabled="false" id="DBControllerService" is-failure-fatal="false" load-order="1" name="DBControllerService"/>
+            <internal-lifecycle-module class-name="com.nec.webotx.appserv.server.internal.objectbroker.ObjectBrokerLifecycle" enabled="false" id="CORBAService" is-failure-fatal="false" load-order="2" name="CORBAService"/>
+            <internal-lifecycle-module class-name="com.nec.webotx.appserv.server.internal.transactionservice.TransactionServiceLifecycle" enabled="false" id="TransactionService" is-failure-fatal="true" load-order="3" name="TransactionService"/>
+            <internal-lifecycle-module class-name="com.nec.webotx.appserv.server.internal.jms.JmsProviderLifecycle" enabled="false" id="JMSProvider" is-failure-fatal="false" load-order="5" name="JMSProvider"/>
+            <internal-lifecycle-module class-name="com.nec.webotx.appserv.server.internal.utility.JavaEEUtilityLifecycle" enabled="true" id="JavaEEUtilityLifecycle" is-failure-fatal="true" load-order="6" name="JavaEEUtilityLifecycle"/>
+            <internal-lifecycle-module class-name="com.nec.webotx.enterprise.web.WOWebContainerLifecycle" enabled="true" id="WebContainerService" is-failure-fatal="false" load-order="11" name="WebContainerService"/>
+            <internal-lifecycle-module class-name="com.nec.webotx.appserv.server.internal.webserver.WebServerLifecycle" enabled="false" id="WebServerService" is-failure-fatal="false" load-order="12" name="WebServerService" state-order="initialization"/>
+        </server>
+    </servers>
+    <nodes>
+        <node install-dir="${com.nec.webotx.productRoot}" name="localhost-domain1" node-host="localhost" type="CONFIG"/>
+    </nodes>
+    <configs>
+        <config name="server-config">
+            <http-service>
+                <access-log format="%a - %u %{yyyy-MM-dd HH:mm:ss,SSS}t &quot;%m %U %q %H&quot; %s %b %D"/>
+                <virtual-server id="server" network-listeners="http-listener-1,http-listener-2"/>
+            </http-service>
+            <admin-service system-jmx-connector-name="system" type="das-and-server">
+                <adminrest/>
+                <jmx-connector address="0.0.0.0" auth-realm-name="admin-realm" enabled="false" name="system" port="6212" security-enabled="false"/>
+                <jmx-connector address="0.0.0.0" auth-realm-name="admin-realm" enabled="false" name="system-option" port="6712" protocol="jmxmp"/>
+                <role-manager>
+                    <role name="administrator">
+                        <user-groups>otxadmin</user-groups>
+                        <type-list>all</type-list>
+                        <command-list>all</command-list>
+                    </role>
+                    <role name="userManager">
+                        <type-list>users</type-list>
+                        <command-list>create-file-user</command-list>
+                        <command-list>delete-file-user</command-list>
+                        <command-list>update-file-user</command-list>
+                        <command-list>list-file-users</command-list>
+                        <command-list>list-file-groups</command-list>
+                        <command-list>list-admin-users</command-list>
+                        <command-list>create-custom-role</command-list>
+                        <command-list>delete-custom-role</command-list>
+                        <command-list>add-custom-role-config</command-list>
+                        <command-list>delete-custom-role-config</command-list>
+                        <command-list>list-roles</command-list>
+                        <command-list>unlock-user</command-list>
+                        <command-list>create-custom-role</command-list>
+                        <command-list>delete-custom-role</command-list>
+                        <command-list>add-custom-role-config</command-list>
+                        <command-list>delete-custom-role-config</command-list>
+                        <command-list>list-roles</command-list>
+                        <command-list>set</command-list>
+                        <command-list>invoke</command-list>
+                    </role>
+                    <role name="deployer">
+                        <type-list>applications</type-list>
+                        <command-list>deploy</command-list>
+                        <command-list>undeploy</command-list>
+                        <command-list>deploydir</command-list>
+                        <command-list>replace</command-list>
+                        <command-list>list-components</command-list>
+                        <command-list>list-sub-components</command-list>
+                        <command-list>show-component-status</command-list>
+                        <command-list>enable</command-list>
+                        <command-list>disable</command-list>
+                        <command-list>set</command-list>
+                        <command-list>invoke</command-list>
+                    </role>
+                </role-manager>
+                <lockout/>
+                <property name="ipsRoot" value="${com.nec.webotx.installRoot}/.."/>
+                <das-config/>
+            </admin-service>
+            <connector-service/>
+            <web-container>
+                <session-config>
+                    <session-manager>
+                        <manager-properties/>
+                        <store-properties/>
+                    </session-manager>
+                    <session-properties/>
+                </session-config>
+                <property name="listener_1" value="org.apache.catalina.core.JreMemoryLeakPreventionListener"/>
+                <property name="listener_2" value="org.apache.catalina.core.AprLifecycleListener"/>
+            </web-container>
+            <ejb-container>
+                <ejb-timer-service/>
+            </ejb-container>
+            <mdb-container/>
+            <jms-service default-jms-host="default_JMS_host">
+                <jms-host host="localhost" name="default_JMS_host"/>
+            </jms-service>
+            <iiop-service/>
+            <log-service err-file="${com.nec.webotx.instanceRoot}/logs/server_err.log" file="${com.nec.webotx.instanceRoot}/logs/server.log" log-rotation-generations="3" rotatelogs-condition="2M">
+                <module-log-levels/>
+                <log-file-config/>
+            </log-service>
+            <security-service keystore="${com.nec.webotx.instanceRoot}/config/keystore.jks" truststore="${com.nec.webotx.instanceRoot}/config/cacerts.jks">
+                <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="admin-realm">
+                    <property name="file" value="${com.nec.webotx.instanceRoot}/config/admin-keyfile"/>
+                    <property name="jaas-context" value="fileRealm"/>
+                </auth-realm>
+                <auth-realm classname="com.sun.enterprise.security.auth.realm.file.FileRealm" name="file">
+                    <property name="file" value="${com.nec.webotx.instanceRoot}/config/keyfile"/>
+                    <property name="jaas-context" value="fileRealm"/>
+                </auth-realm>
+                <auth-realm classname="com.sun.enterprise.security.auth.realm.certificate.CertificateRealm" name="certificate"/>
+                <jacc-provider name="default" policy-configuration-factory-provider="com.sun.enterprise.security.provider.PolicyConfigurationFactoryImpl" policy-provider="com.sun.enterprise.security.provider.PolicyWrapper">
+                    <property name="repository" value="${com.nec.webotx.instanceRoot}/generated/policy"/>
+                </jacc-provider>
+                <jacc-provider name="simple" policy-configuration-factory-provider="com.sun.enterprise.security.jacc.provider.SimplePolicyConfigurationFactory" policy-provider="com.sun.enterprise.security.jacc.provider.SimplePolicyProvider"/>
+                <audit-module classname="com.sun.enterprise.security.ee.Audit" name="default">
+                    <property name="auditOn" value="false"/>
+                </audit-module>
+                <message-security-config auth-layer="HttpServlet">
+                    <provider-config class-name="com.nec.webotx.as.admingui.common.security.AdminConsoleAuthModule" provider-id="GFConsoleAuthModule" provider-type="server">
+                        <request-policy auth-source="sender"/>
+                        <response-policy/>
+                        <property name="restAuthURL" value="http://localhost:${ADMIN_LISTENER_PORT}/management/sessions"/>
+                        <property name="loginPage" value="/login.jsf"/>
+                        <property name="loginErrorPage" value="/loginError.jsf"/>
+                    </provider-config>
+                </message-security-config>
+                <property name="default-digest-algorithm" value="SHA-256"/>
+            </security-service>
+            <jndi-service/>
+            <embedded-iiop-service enabled="false" port="7780"/>
+            <diagnostic-service>
+                <statistics-report/>
+            </diagnostic-service>
+            <web-service>
+                <ws-rm/>
+            </web-service>
+            <java-config classpath-suffix="" debug-options="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=4004" system-classpath="">
+                <system-jvm-options>-server</system-jvm-options>
+                <system-jvm-options>-Djava.awt.headless=true</system-jvm-options>
+                <system-jvm-options>-Djavax.management.builder.initial=com.sun.enterprise.v3.admin.AppServerMBeanServerBuilder</system-jvm-options>
+                <system-jvm-options>-XX:+UnlockDiagnosticVMOptions</system-jvm-options>
+                <system-jvm-options>-Djava.endorsed.dirs=${com.nec.webotx.installRoot}/modules/endorsed${path.separator}${com.nec.webotx.installRoot}/lib/endorsed</system-jvm-options>
+                <system-jvm-options>-Djava.security.policy=${com.nec.webotx.instanceRoot}/config/server.policy</system-jvm-options>
+                <system-jvm-options>-Djava.security.auth.login.config=${com.nec.webotx.instanceRoot}/config/login.conf</system-jvm-options>
+                <system-jvm-options>-Dcom.nec.webotx.enterprise.security.httpsOutboundKeyAlias=webotx</system-jvm-options>
+                <system-jvm-options>-Djava.ext.dirs=${com.nec.webotx.javaRoot}/lib/ext${path.separator}${com.nec.webotx.javaRoot}/jre/lib/ext${path.separator}${com.nec.webotx.instanceRoot}/lib/ext${path.separator}${com.nec.webotx.installRoot}/lib/ext</system-jvm-options>
+                <system-jvm-options>-Djdbc.drivers=org.apache.derby.jdbc.ClientDriver</system-jvm-options>
+                <system-jvm-options>-DANTLR_USE_DIRECT_CLASS_LOADING=true</system-jvm-options>
+                <system-jvm-options>-Dcom.nec.webotx.enterprise.config.config_environment_factory_class=com.nec.webotx.enterprise.config.serverbeans.AppserverConfigEnvironmentFactory</system-jvm-options>
+                <system-jvm-options>-Dosgi.shell.telnet.port=6666</system-jvm-options>
+                <system-jvm-options>-Dosgi.shell.telnet.maxconn=1</system-jvm-options>
+                <system-jvm-options>-Dosgi.shell.telnet.ip=127.0.0.1</system-jvm-options>
+                <system-jvm-options>-Dgosh.args=--nointeractive</system-jvm-options>
+                <system-jvm-options>-Dfelix.fileinstall.dir=${com.nec.webotx.installRoot}/modules/autostart/</system-jvm-options>
+                <system-jvm-options>-Dfelix.fileinstall.poll=5000</system-jvm-options>
+                <system-jvm-options>-Dfelix.fileinstall.log.level=2</system-jvm-options>
+                <system-jvm-options>-Dfelix.fileinstall.bundles.new.start=true</system-jvm-options>
+                <system-jvm-options>-Dfelix.fileinstall.bundles.startTransient=true</system-jvm-options>
+                <system-jvm-options>-Dfelix.fileinstall.disableConfigSave=false</system-jvm-options>
+                <system-jvm-options>-XX:NewRatio=2</system-jvm-options>
+                <system-jvm-options>-Djdk.tls.rejectClientInitiatedRenegotiation=true</system-jvm-options>
+                <system-jvm-options>-Dlog4j2-as.configurationFile=file:///${com.nec.webotx.instanceRoot}/config/log4j2-as.xml</system-jvm-options>
+                <system-jvm-options>-Djava.util.logging.config.file=${com.nec.webotx.instanceRoot}/config/logging.properties</system-jvm-options>
+                <system-jvm-options>-Djava.util.logging.manager=com.nec.webotx.logging.WebOTXLogManager</system-jvm-options>
+                <system-jvm-options>-Dsun.lang.ClassLoader.allowArraySyntax=true</system-jvm-options>
+                <system-jvm-options>-javaagent:${com.nec.webotx.installRoot}/lib/deployment/hotswap-agent.jar</system-jvm-options>
+                <system-jvm-options>-Dlog4j2-as.disable.jmx=true</system-jvm-options>
+                <system-jvm-options>-Dlog4j2-as.skipJansi=true</system-jvm-options>
+                <system-jvm-options>-Dlog4j2-as.is.webapp=false</system-jvm-options>
+                <system-jvm-options>-Dlog4j2-as.garbagefree.threadContextMap=false</system-jvm-options>
+                <system-jvm-options>-Dlog4j2-as.enable.threadlocals=false</system-jvm-options>
+                <system-jvm-options>-Dorg.glassfish.startupThreadPolicy=USE_NO_THREADS</system-jvm-options>
+                <system-jvm-options>-Dcom.nec.webotx.jmxconnector.synchronize=true</system-jvm-options>
+                <system-jvm-options>-Dcom.nec.webotx.hostName=localhost</system-jvm-options>
+                <system-jvm-options>-Dcom.nec.webotx.microprofile=true</system-jvm-options>
+                <system-jvm-options>-Djdk.lang.Process.allowAmbiguousCommands=true</system-jvm-options>
+                <system-jvm-options>-Darchaius.dynamicProperty.disableDefaultConfig=true</system-jvm-options>
+                <system-jvm-options>-Dlog4j2-as.logsdir=${com.nec.webotx.instanceRoot}/logs</system-jvm-options>
+            </java-config>
+            <network-config>
+                <protocols>
+                    <protocol name="http-protocol">
+                        <http default-virtual-server="server">
+                            <file-cache enabled="true"/>
+                        </http>
+                    </protocol>
+                    <protocol name="https-protocol" security-enabled="true">
+                        <http default-virtual-server="server">
+                            <file-cache enabled="true"/>
+                        </http>
+                        <ssl cert-nickname="webotx" classname="com.sun.enterprise.security.ssl.GlassfishSSLImpl"/>
+                    </protocol>
+                    <protocol name="apr-http2-protocol" security-enabled="true" type="apr">
+                        <http default-virtual-server="server">
+                            <file-cache enabled="true"/>
+                        </http>
+                        <ssl>
+                            <property name="UpgradeProtocol#className" value="org.apache.coyote.http2.Http2Protocol"/>
+                            <property name="SSLHostConfig.Certificate#certificateFile" value="${com.nec.webotx.instanceRoot}/config/WebCont/sample.crt"/>
+                            <property name="SSLHostConfig.Certificate#certificateKeyFile" value="${com.nec.webotx.instanceRoot}/config/WebCont/sample.key"/>
+                        </ssl>
+                    </protocol>
+                    <protocol name="nio-http2-protocol" security-enabled="true" type="nio">
+                        <http default-virtual-server="server" version="HTTP/2.0"/>
+                        <ssl>
+                            <property name="UpgradeProtocol#className" value="org.apache.coyote.http2.Http2Protocol"/>
+                        </ssl>
+                    </protocol>
+                    <protocol name="agent-ajp-protocol" type="ajp">
+                        <http default-virtual-server="server">
+                            <file-cache enabled="true"/>
+                        </http>
+                    </protocol>
+                </protocols>
+                <network-listeners>
+                    <network-listener enabled="true" name="http-listener-1" port="8080" protocol="http-protocol" thread-pool="http-thread-pool" transport="tcp"/>
+                    <network-listener enabled="true" name="http-listener-2" port="8443" protocol="https-protocol" thread-pool="http-thread-pool" transport="tcp"/>
+                    <network-listener enabled="false" name="agent-ajp-listener" port="8099" protocol="agent-ajp-protocol" thread-pool="http-thread-pool" transport="tcp"/>
+                </network-listeners>
+                <transports>
+                    <transport name="tcp"/>
+                </transports>
+            </network-config>
+            <thread-pools>
+                <thread-pool idle-thread-timeout-seconds="60" name="http-thread-pool"/>
+                <thread-pool name="thread-pool-1"/>
+            </thread-pools>
+            <microprofile openapi-enabled="true">
+                <microprofile-config id="micro-prop" ordinal="100"/>
+                <microprofile-config id="env-prop" ordinal="300"/>
+                <microprofile-config id="sys-prop" ordinal="400"/>
+                <microprofile-metrics enabled="true" secure="true"/>
+                <microprofile-health enabled="true"/>
+            </microprofile>
+            <monitoring-service>
+                <module-monitoring-levels/>
+            </monitoring-service>
+            <availability-service/>
+        </config>
+    </configs>
+    <property name="administrative.domain.name" value="domain1"/>
+    <secure-admin enabled="true" special-admin-indicator="5c06c90f-4ceb-46f4-8f65-880e396b997b">
+        <secure-admin-principal dn="CN=WebOTX, OU=WebOTX, O=NEC Corporation, L=Tokyo, ST=Tokyo, C=JP"/>
+    </secure-admin>
+    <clusters/>
+</domain>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?><Configuration status="WARN" strict="true" monitorInterval="0" shutdownHook="disable">
+
+  <Properties>
+    <Property name="logsdir">${sys:com.nec.webotx.instanceRoot}/logs</Property>
+  </Properties>
+
+  <CustomLevels>
+    <CustomLevel name="SLOGINFO" intLevel="350"/>
+    <CustomLevel name="CONFIG" intLevel="450"/>
+    <CustomLevel name="DETAIL" intLevel="550"/>
+  </CustomLevels>
+
+  <Appenders>
+    <Appender type="RollingFile" name="STDOUTFILELOG" fileName="${logsdir}/server.log" filePattern="${logsdir}/server.log.%i">
+      <Layout type="PatternLayout" pattern="%d %m [%t]%n%ex"/>
+      <Policies>
+        <ASSizeBasedTriggeringPolicy size="2MB" enabled="true"/>
+        <ASSecondIntervalTriggeringPolicy interval="86400" enabled="false"/>
+      </Policies>
+      <DefaultRolloverStrategy fileIndex="min" max="3"/>
+    </Appender>
+    <Appender type="RollingFile" name="STDERRFILELOG" fileName="${logsdir}/server_err.log" filePattern="${logsdir}/server_err.log.%i">
+      <Layout type="PatternLayout" pattern="%d %m [%t]%n%ex"/>
+      <Policies>
+        <ASSizeBasedTriggeringPolicy size="2MB" enabled="true"/>
+        <ASSecondIntervalTriggeringPolicy interval="86400" enabled="false"/>
+      </Policies>
+      <DefaultRolloverStrategy fileIndex="min" max="3"/>
+    </Appender>
+    <Appender type="ASNotification" name="NOTIFICATIONLOG">
+      <Layout type="PatternLayout" pattern="%m (%c)%ex"/>
+    </Appender>
+    <Appender type="RollingFile" name="FILELOG" fileName="${logsdir}/agent.log" filePattern="${logsdir}/agent.log.%i">
+      <Layout type="PatternLayout" pattern="%d %-8level %-8marker - %m [%t]%n%ex"/>
+      <Policies>
+        <ASSizeBasedTriggeringPolicy size="1MB" enabled="true"/>
+        <ASSecondIntervalTriggeringPolicy interval="86400" enabled="false"/>
+      </Policies>
+      <DefaultRolloverStrategy fileIndex="min" max="2"/>
+    </Appender>
+    <Appender type="ASStatisticsReport" name="STATISTICSREPORTLOG" select="STATISTICSREPORTFILELOG" directory="${logsdir}/diagnostics/">
+      <TemplateAppenderSet>
+        <Appender type="RollingFile" name="STATISTICSREPORTFILELOG" fileName="${logsdir}/diagnostics/report.csv" filePattern="${logsdir}/diagnostics/report.csv.%i">
+          <Layout type="PatternLayout" pattern="%m%n%ex"/>
+          <Policies>
+            <ASSizeBasedTriggeringPolicy size="1MB" enabled="true"/>
+            <ASSecondIntervalTriggeringPolicy interval="86400" enabled="false"/>
+          </Policies>
+          <DefaultRolloverStrategy fileIndex="min" max="1"/>
+        </Appender>
+      </TemplateAppenderSet>
+    </Appender>
+    <Appender type="RollingFile" name="STATISTICSOPTIONALLOG" fileName="${logsdir}/diagnostics/optional-stats.csv" filePattern="${logsdir}/diagnostics/optional-stats.csv.%i">
+      <Layout type="PatternLayout" pattern="%m%n%ex"/>
+      <Policies>
+        <ASSizeBasedTriggeringPolicy size="1MB" enabled="true"/>
+        <ASSecondIntervalTriggeringPolicy interval="86400" enabled="false"/>
+      </Policies>
+      <DefaultRolloverStrategy fileIndex="min" max="1"/>
+    </Appender>
+    <Appender type="RollingFile" name="ACCESSFILELOGSERVER" fileName="${logsdir}/server_access.log" filePattern="${logsdir}/server_access.log.%i">
+      <Layout type="PatternLayout" pattern="%m %n%ex"/>
+      <Policies>
+        <ASSizeBasedTriggeringPolicy size="10MB" enabled="true"/>
+        <ASSecondIntervalTriggeringPolicy interval="86400" enabled="false"/>
+      </Policies>
+      <DefaultRolloverStrategy fileIndex="min" max="3"/>
+    </Appender>
+    <Appender type="ASReplacement" name="LOGDUMPLOG" select="LOGDUMPFILELOG">
+      <TemplateAppenderSet>
+        <Appender type="RollingFile" name="LOGDUMPFILELOG" fileName="${logsdir}/logdump/logdump.log" filePattern="${logsdir}/logdump/logdump.log.%d{yyyyMMddHHmmss}" createOnDemand="true">
+          <Layout type="PatternLayout" pattern="%d %-8level %-8marker - %m [%t]%n%ex"/>
+          <Policies>
+            <ASSizeBasedTriggeringPolicy size="1MB" enabled="true"/>
+            <ASSecondIntervalTriggeringPolicy interval="86400" enabled="false"/>
+          </Policies>
+          <DefaultRolloverStrategy fileIndex="min" max="3"/>
+        </Appender>
+      </TemplateAppenderSet>
+    </Appender>
+  </Appenders>
+
+  <Loggers>
+    <Logger name="com.nec.webotx.enterprise.system.std" level="INFO" additivity="false">
+      <AppenderRef ref="STDOUTFILELOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx.enterprise.system.stderr" level="ERROR" additivity="false">
+      <AppenderRef ref="STDOUTFILELOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx" level="CONFIG" additivity="false">
+        <AppenderRef ref="FILELOG"/>
+        <AppenderRef ref="NOTIFICATIONLOG"/>
+    </Logger>
+    <Logger name="apiscan.classfile" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="apiscan.packaging" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="apiscan.stdapis" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.sun.jdo.api.persistence.enhancer.Bundle" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.sun.jdo.api.persistence.model.Bundle" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.sun.jdo.spi.persistence.generator.database.Bundle" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.sun.jdo.spi.persistence.support.sqlstore" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.sun.jdo.spi.persistence.utility" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="javax" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.tomcat" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.coyote" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.jasper" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.naming" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.catalina" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.glassfish.naming" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.glassfish.orb" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.glassfish.security.services" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx.enterprise.system.remote_access" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx.enterprise.system.microprofile" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx.relational.attrs.file" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.enterprise.system.jaspic.security" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.commons" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="tomcat" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.tomcat.util.digester.Digester" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.tomcat.util.digester.Digester.sax" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.jasper" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.sun.faces.LogStrings" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="server" level="CONFIG" additivity="false">
+      <AppenderRef ref="ACCESSFILELOGSERVER"/>
+    </Logger>
+    <Logger name="org.apache.axis" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.ws" level="WARN" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.apache.ws.security" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="system.tools.avk.appverification" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="system.tools.avk.tools.verifier" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx.enterprise.system.container.ejb" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.sun.jdo.api.persistence.mapping.ejb.Bundle" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.sun.jdo.spi.persistence.support.ejb" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx.ajaxconsole.adminConsoleOperationsLogger" level="INFO" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="org.glassfish.admingui" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="com.nec.wojta.jts" level="CONFIG" additivity="true">
+      <AppenderRef ref="FILELOG"/>
+    </Logger>
+    <Logger name="StatisticsReport" level="INFO" additivity="false">
+      <AppenderRef ref="STATISTICSREPORTLOG"/>
+    </Logger>
+    <Logger name="StatisticsOptionalReport" level="INFO" additivity="false">
+      <AppenderRef ref="STATISTICSOPTIONALLOG"/>
+    </Logger>
+    <Logger name="com.ibm.jbatch" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+      <AppenderRef ref="NOTIFICATIONLOG"/>
+    </Logger>
+    <Logger name="org.glassfish.batch" level="CONFIG" additivity="false">
+      <AppenderRef ref="FILELOG"/>
+      <AppenderRef ref="NOTIFICATIONLOG"/>
+    </Logger>
+    <LogDumper name="com.nec.webotx.logging.WebOTXLogDumper" level="ERROR" logdumpSize="100" enabled="false">
+      <AppenderRef ref="LOGDUMPLOG"/>
+    </LogDumper>
+    <Root level="INFO">
+      <AppenderRef ref="FILELOG"/>
+      <AppenderRef ref="NOTIFICATIONLOG"/>
+    </Root>
+  </Loggers>
+
+</Configuration>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" strict="true" monitorInterval="0" shutdownHook="disable">
+
+  <Appenders>
+    <Appender type="Console" name="CONSLOG" target="SYSTEM_OUT" follow="false">
+      <PatternLayout pattern="%d %-5p %c - %m [%t] (%F:%L)%n"/>
+      <ThresholdFilter level="INFO"/>
+    </Appender>
+    <Appender type="Console" name="CLICONSLOG" target="SYSTEM_OUT" follow="false">
+      <PatternLayout pattern="%m%n"/>
+      <ThresholdFilter level="DEBUG"/>
+    </Appender>
+  </Appenders>
+
+  <Loggers>
+    <Logger name="javax.nec.webotx.enterprise">
+      <AppenderRef ref="CONSLOG"/>
+    </Logger>
+    <Logger name="org.apache">
+      <AppenderRef ref="CONSLOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx.enterprise.system.tools.admin" level="ERROR">
+      <AppenderRef ref="CLICONSLOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx" level="ERROR" additivity="false">
+      <AppenderRef ref="CLICONSLOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx" additivity="false">
+      <AppenderRef ref="CLICONSLOG"/>
+    </Logger>
+    <Logger name="tomcat">
+      <AppenderRef ref="CONSLOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx.adminutil.console" level="INFO" additivity="false">
+      <AppenderRef ref="CLICONSLOG"/>
+    </Logger>
+    <Logger name="com.nec.webotx.adminutil.file" level="INFO" additivity="false">
+    </Logger>
+    <Logger name="com.nec.webotx.jta" level="INFO" additivity="false">
+      <AppenderRef ref="CLICONSLOG"/>
+    </Logger>
+    <Root>
+      <AppenderRef ref="CONSLOG"/>
+    </Root>
+  </Loggers>
+</Configuration>

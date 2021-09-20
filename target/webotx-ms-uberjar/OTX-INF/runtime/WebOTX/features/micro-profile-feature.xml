@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature name="micro-profile-feature" visible="true" mandatory="false">
+    <modules>
+        <module location="modules/admin-cli.jar" />
+        <module location="modules/admin-util.jar">
+            <initializer name="com.sun.enterprise.admin.util.CommandThreadPool" inclusion-tags="agent" />
+            <initializer name="com.sun.enterprise.admin.util.InstanceStateServiceImpl" inclusion-tags="agent" />
+        </module>
+        <module location="modules/amx-core.jar">
+            <initializer name="com.nec.webotx.enterprise.management.util.MultiProcessTaskService" inclusion-tags="pg" />
+        </module>
+        <module location="modules/aopalliance-repackaged.jar" />
+        <module location="modules/api-exporter.jar" />
+        <module location="modules/asm-all-repackaged.jar" />
+        <module location="modules/asm-all.jar" />
+        <module location="modules/autostart/org.apache.felix.configadmin.jar" />
+        <module location="modules/autostart/org.apache.felix.fileinstall.jar" />
+        <module location="modules/autostart/org.apache.felix.gogo.command.jar" />
+        <module location="modules/autostart/org.apache.felix.gogo.runtime.jar" />
+        <module location="modules/autostart/org.apache.felix.gogo.shell.jar" />
+        <module location="modules/autostart/org.apache.felix.scr.jar" />
+        <module location="modules/bean-validator.jar" />
+        <module location="modules/class-model.jar" />
+        <module location="modules/common-util.jar" />
+        <module location="modules/config-api.jar" />
+        <module location="modules/config-types.jar" />
+        <module location="modules/custom-profile.jar" />
+        <module location="modules/deployment-admin.jar" />
+        <module location="modules/deployment-autodeploy.jar">
+            <initializer name="org.glassfish.deployment.autodeploy.AutoDeployService" inclusion-tags="user-domain" />
+        </module>
+        <module location="modules/deployment-common.jar">
+            <initializer name="com.nec.webotx.as.deployment.common.ObjectTrackerServiceImpl" inclusion-tags="user-domain,pg" />
+        </module>
+        <module location="modules/endorsed/javax.annotation-api.jar" />
+        <module location="modules/flashlight-extra-jdk-packages.jar" />
+        <module location="modules/flashlight-framework.jar" />
+        <module location="modules/glassfish-api.jar" />
+        <module location="modules/glassfish-extra-jre-packages.jar" />
+        <module location="modules/glassfish-mbeanserver.jar">
+            <initializer name="org.glassfish.admin.mbeanserver.JMXStartupService" inclusion-tags="agent" />
+            <initializer name="org.glassfish.admin.mbeanserver.MBeanServerFactory" inclusion-tags="agent,pg" />
+        </module>
+        <module location="modules/glassfish-naming.jar">
+            <initializer name="com.sun.enterprise.naming.GlassFishNamingBuilder" inclusion-tags="user-domain" />
+        </module>
+        <module location="modules/glassfish.jar" />
+        <module location="modules/gmbal.jar" />
+        <module location="modules/gms-adapter.jar" />
+        <module location="modules/gms-bootstrap.jar" />
+        <module location="modules/hk2-api.jar" />
+        <module location="modules/hk2-config.jar" />
+        <module location="modules/hk2-core.jar" />
+        <module location="modules/hk2-locator.jar" />
+        <module location="modules/hk2-runlevel.jar" />
+        <module location="modules/hk2-utils.jar" />
+        <module location="modules/hk2.jar" />
+        <module location="modules/internal-api.jar">
+            <initializer name="org.glassfish.internal.api.Globals" />
+            <initializer name="org.glassfish.internal.config.UnprocessedConfigListener" inclusion-tags="agent" />
+        </module>
+        <module location="modules/j-interop-repackaged.jar" />
+        <module location="modules/jackson-annotations.jar" />
+        <module location="modules/jackson-core.jar" />
+        <module location="modules/jackson-databind.jar" />
+        <module location="modules/jackson-jaxrs-base.jar" />
+        <module location="modules/jackson-jaxrs-json-provider.jar" />
+        <module location="modules/jackson-module-jaxb-annotations.jar" />
+        <module location="modules/javassist.jar" />
+        <module location="modules/javax.el.jar" />
+        <module location="modules/javax.el-api.jar" />
+        <module location="modules/javax.inject.jar" />
+        <module location="modules/javax.ws.rs-api.jar" />
+        <module location="modules/jersey-bean-validation.jar" />
+        <module location="modules/jersey-client.jar" />
+        <module location="modules/jersey-common.jar" />
+        <module location="modules/jersey-cdi1x-servlet.jar" />
+        <module location="modules/jersey-cdi1x-transaction.jar" />
+        <module location="modules/jersey-cdi1x.jar" />
+        <module location="modules/jersey-container-grizzly2-http.jar" />
+        <module location="modules/jersey-container-jetty-http.jar" />
+        <module location="modules/jersey-entity-filtering.jar" />
+        <module location="modules/jersey-guava.jar" />
+        <module location="modules/jersey-media-jaxb.jar" />
+        <module location="modules/jersey-media-json-jackson.jar" />
+        <module location="modules/jersey-media-json-jettison.jar" />
+        <module location="modules/jersey-media-multipart.jar" />
+        <module location="modules/jersey-media-sse.jar" />
+        <module location="modules/jersey-server.jar" />
+        <module location="modules/jettison.jar" />
+        <module location="modules/jmxremote_optional-repackaged.jar" />
+        <module location="modules/kernel.jar">
+            <initializer name="com.sun.enterprise.v3.admin.IdmService" />
+            <initializer name="com.sun.enterprise.v3.admin.LocalPasswordImpl" />
+            <initializer name="com.sun.enterprise.v3.server.SystemTasksImpl" />
+            <initializer name="com.sun.enterprise.v3.admin.listener.CombinedJavaConfigSystemPropertyListener" />
+            <initializer name="com.sun.enterprise.v3.server.LifecycleModuleService" inclusion-tags="agent,pg" />
+            <initializer name="com.sun.enterprise.v3.admin.MbeanService" />
+            <initializer name="com.sun.enterprise.v3.server.ApplicationConfigListener" exclusion-tags="admin-domain,pg" />
+            <initializer name="com.sun.enterprise.v3.server.DynamicReloadService" inclusion-tags="user-domain" />
+        </module>
+
+        <module location="modules/launcher.jar" />
+        <module location="modules/ldapbp-repackaged.jar" />
+        <module location="modules/logging-service.jar">
+            <initializer name="com.sun.enterprise.server.logging.LogManagerService" />
+        </module>
+        <module location="modules/management-api.jar" />
+        <module location="modules/mimepull.jar" />
+        <module location="modules/monitoring-core.jar">
+            <initializer name="org.glassfish.admin.monitor.MonitoringBootstrap" inclusion-tags="agent,pg" />
+            <initializer name="com.nec.webotx.as.admin.monitor.resources.WODSStatsProviderBootstrap" inclusion-tags="user-domain,pg" />
+            <initializer name="com.nec.webotx.as.admin.monitor.domain.DomainStatsProviderBootstrap" inclusion-tags="agent,pg" />
+            <initializer name="org.glassfish.admin.monitor.jvm.JVMStatsProviderBootstrap" inclusion-tags="agent" />
+        </module>
+        <module location="modules/nucleus-grizzly-all.jar" />
+        <module location="modules/org.apache.felix.bundlerepository.jar" />
+        <module location="modules/osgi-adapter.jar" />
+        <module location="modules/osgi-cli-remote.jar" />
+        <module location="modules/osgi-container.jar" />
+        <module location="modules/osgi-resource-locator.jar" />
+        <module location="modules/pfl-asm.jar" />
+        <module location="modules/pfl-basic-tools.jar" />
+        <module location="modules/pfl-basic.jar" />
+        <module location="modules/pfl-dynamic.jar" />
+        <module location="modules/pfl-tf-tools.jar" />
+        <module location="modules/pfl-tf.jar" />
+        <module location="modules/scattered-archive-api.jar" />
+        <module location="modules/security-services.jar" />
+        <module location="modules/security.jar">
+            <initializer name="com.sun.enterprise.security.admin.cli.SecureAdminStartupCheck" inclusion-tags="user-domain" />
+            <initializer name="com.sun.enterprise.security.SecurityLifecycle" inclusion-tags="agent,pg" />
+            <initializer name="com.sun.enterprise.security.admin.cli.SecureAdminConfigMonitor" inclusion-tags="agent" />
+            <initializer name="com.nec.webotx.enterprise.security.SecurityInitService" />
+        </module>
+        <module location="modules/shoal-gms-api.jar" />
+        <module location="modules/shoal-gms-impl.jar" />
+        <module location="modules/simple-glassfish-api.jar" />
+        <module location="modules/ssl-impl.jar" />
+        <module location="modules/trilead-ssh2-repackaged.jar" />
+        <module location="modules/as-common.jar" />
+        <module location="modules/log4j2-as-api.jar" />
+        <module location="modules/log4j2-as-core.jar" />
+        <module location="modules/logging-message.jar" />
+        <module location="modules/logging-util.jar" />
+        <module location="modules/jmx-remote-common.jar" />
+        <module location="modules/jmx-remote-server.jar" />
+        <module location="modules/jmx-remote-client.jar" />
+        <module location="modules/performance-analyzer.jar" />
+        <module location="${com.nec.webotx.shareRoot}/lib/wojcmn.jar" />
+        <module location="modules/mbeans-annotation.jar" />
+        <module location="modules/mbeans-config.jar" />
+        <module location="modules/shmem.jar" />
+        <module location="modules/deployment-tpm-util-api.jar" />
+        <module location="modules/deployment-tpm-util-impl.jar" />
+        <module location="modules/shmem-admin.jar" />
+        <module location="modules/diagnostics.jar" />
+        <module location="modules/diagnostics-enabler.jar">
+            <initializer name="com.nec.webotx.enterprise.diagnostics.statistics.service.StatisticsReportBootstrapImpl" inclusion-tags="user-domain" />
+        </module>
+        <module location="modules/application-loader-service.jar">
+            <initializer name="com.nec.webotx.enterprise.v9.server.apploader.ApplicationLoaderServiceImpl" exclusion-tags="admin-domain" />
+        </module>
+        <module location="modules/commands-service.jar">
+            <initializer name="com.nec.webotx.as.admin.command.service.WebOTXCommandService" inclusion-tags="agent" />
+        </module>
+        <module location="modules/grizzly-enabler.jar">
+            <initializer name="com.nec.webotx.enterprise.v9.services.impl.grizzly.GrizzlyServiceImpl" inclusion-tags="user-domain,pg" />
+        </module>
+        <module location="modules/hotswap-service.jar">
+            <initializer name="com.nec.webotx.as.deployment.hotswap.HotSwapService" inclusion-tags="user-domain,pg" />
+        </module>
+        <module location="modules/internal-lifecycle-module-service.jar">
+            <initializer name="com.nec.webotx.enterprise.v9.server.ilcm.InternalLifecycleModuleService" exclusion-tags="admin-domain" />
+        </module>
+        <module location="modules/mbeans-others.jar">
+            <initializer name="com.nec.webotx.as.admin.deployment.mbean.DeploymentMBeanLoader" inclusion-tags="user-domain,proxy-domain" />
+        </module>
+        <module location="modules/profile-service.jar">
+            <initializer name="com.nec.webotx.enterprise.as.profile.service.ProfileMBeanEnablerImpl" inclusion-tags="user-domain" />
+        </module>
+        <module location="modules/rmi-http-gateway.jar" />
+        <module location="modules/web-container-enabler.jar">
+            <initializer name="com.nec.webotx.enterprise.v9.services.impl.webcontainer.WebContainerStarterImpl" inclusion-tags="user-domain" />
+        </module>
+        <module location="modules/cache-impl.jar">
+            <initializer name="com.nec.webotx.as.common.cache.startup.DataGridStartup" inclusion-tags="user-domain,pg" />
+        </module>
+        <module location="modules/cache.jar" />
+        <module location="modules/jpa-service.jar">
+            <initializer name="com.nec.webotx.as.common.jpa.startup.JPAStartup" inclusion-tags="user-domain,pg" />
+        </module>
+        <module location="modules/coherence-packages.jar" />
+        <module location="modules/commands-service.jar" />
+        <module location="modules/mbeans-others.jar" />
+        <module location="modules/server-commands.jar" />
+        <module location="modules/tuning.jar" />
+        <module location="modules/tpmonitor-manager-external.jar" />
+        <module location="modules/lifecycle.jar" />
+        <module location="modules/mbeans-runtime.jar" />
+        <module location="modules/rmic.jar" />
+        <module location="modules/rmictask.jar" />
+        <module location="modules/wots91.jar"/>
+        <module location="modules/jmqspi.jar" />
+        <module location="modules/wo-orb110.jar" />
+        <module location="modules/omgorb110.jar" />
+        <module location="modules/jsocks.jar" />
+        <module location="modules/objectbroker-lifecycle.jar" />
+        <module location="modules/pg-javaee.jar"/>
+        <module location="modules/pg-javaee-threadpool.jar" />
+        <module location="modules/wojdbc91.jar" />
+        <module location="modules/utility-lifecycle.jar" />
+        <module location="modules/transactionservice-lifecycle.jar" />
+        <module location="modules/webserver-lifecycle.jar" />
+        <module location="modules/dbcontroller-lifecycle.jar" />
+        <module location="modules/wo-jpa-core.jar" />
+        <module location="modules/woi18n.jar" />
+        <module location="modules/security-admin.jar" />
+        <module location="modules/endorsed/wows-api.jar" />
+        <module location="modules/wows-rt.jar" />
+        <module location="modules/common-domain.jar" />
+        <module location="modules/adminassistant.jar" />
+        <module location="modules/ant.jar" />
+        <module location="modules/concurrent-impl.jar" />
+        <module location="modules/concurrent-connector.jar" />
+        <module location="modules/connectors-inbound-runtime.jar" />
+        <module location="modules/ejb-container.jar" />
+        <module location="modules/ejb-descriptor-changer.jar" />
+        <module location="modules/gf-jms-connector.jar" />
+        <module location="modules/javax.enterprise.concurrent.jar" />
+        <module location="modules/javax.enterprise.concurrent-api.jar" />
+        <module location="modules/javax.jms-api.jar" />
+        <module location="modules/javax.xml.rpc-api.jar" />
+        <module location="modules/jms-core.jar" />
+        <module location="modules/jsr109-impl.jar" />
+        <module location="modules/orb-iiop.jar" />
+        <module location="modules/osgi-service.jar" />
+        <module location="modules/webservices.security.jar" />
+        <module location="modules/wows-tools.jar" />
+        <module location="modules/amx-javaee.jar">
+            <initializer name="com.nec.webotx.as.admin.amx.impl.j2ee.loader.ApplicationInfoReadyFeatureService" inclusion-tags="agent" />
+        </module>
+        <module location="modules/annotation-framework.jar" />
+        <module location="modules/cdi-api.jar" />
+        <module location="modules/cdi-api-fragment.jar" />
+        <module location="modules/container-common.jar">
+            <initializer name="com.sun.enterprise.container.common.impl.managedbean.ManagedBeanManagerImpl" inclusion-tags="user-domain,pg" />
+        </module>
+        <module location="modules/connectors-admin.jar" />
+        <module location="modules/connectors-internal-api.jar" />
+        <module location="modules/connectors-runtime.jar" />
+        <module location="modules/deployment-javaee-core.jar" />
+        <module location="modules/dol.jar" />
+        <module location="modules/ecj.jar" />
+        <module location="modules/ejb-client.jar" />
+        <module location="modules/ejb-internal-api.jar" />
+        <module location="modules/ejb-ior.jar" />
+        <module location="modules/gf-connectors-connector.jar" />
+        <module location="modules/gf-ejb-connector.jar" />
+        <module location="modules/gf-web-connector.jar" />
+        <module location="modules/glassfish-grizzly-extra-all.jar" />
+        <module location="modules/guava.jar" />
+        <module location="modules/ha-api.jar" />
+        <module location="modules/javamail-connector.jar" />
+        <module location="modules/javax.ejb-api.jar" />
+        <module location="modules/javax.enterprise.deploy-api.jar" />
+        <module location="modules/javax.interceptor-api.jar" />
+        <module location="modules/javax.mail.jar" />
+        <module location="modules/javax.management.j2ee-api.jar" />
+        <module location="modules/javax.persistence.jar" />
+        <module location="modules/javax.resource-api.jar" />
+        <module location="modules/javax.security.jacc-api.jar" />
+        <module location="modules/javax.servlet.jsp.jar" />
+        <module location="modules/javax.servlet.jsp-api.jar" />
+        <module location="modules/javax.servlet-api.jar" />
+        <module location="modules/javax.transaction-api.jar" />
+        <module location="modules/javax.security.auth.message-api.jar" />
+        <module location="modules/javax.websocket-api.jar" />
+        <module location="modules/jaspic.provider.framework.jar" />
+        <module location="modules/jboss-logging.jar" />
+        <module location="modules/jdbc-admin.jar" />
+        <module location="modules/jdbc-config.jar" />
+        <module location="modules/jdbc-runtime.jar" />
+        <module location="modules/jta.jar" />
+        <module location="modules/jts.jar" />
+        <module location="modules/nucleus-resources.jar">
+            <initializer name="org.glassfish.resourcebase.resources.listener.ResourceManager" inclusion-tags="user-domain" />
+        </module>
+        <module location="modules/resources-connector.jar">
+            <initializer name="org.glassfish.resources.listener.ApplicationScopedResourcesManager" inclusion-tags="user-domain" />
+        </module>
+        <module location="modules/orb-connector.jar" />
+        <module location="modules/orb-enabler.jar">
+            <initializer name="org.glassfish.enterprise.api.enabler.ORBConnectorStartup" inclusion-tags="user-domain,pg" />
+        </module>
+        <module location="modules/org.eclipse.persistence.asm.jar" />
+        <module location="modules/org.eclipse.persistence.core.jar" />
+        <module location="modules/org.eclipse.persistence.jpa.jar" />
+        <module location="modules/osgi-jpa-extension.jar">
+            <initializer name="com.nec.webotx.as.osgijpa.extension.JPAStartupService" inclusion-tags="user-domain" />
+        </module>
+        <module location="modules/stats77.jar" />
+        <module location="modules/security-ee.jar" />
+        <module location="modules/transaction-internal-api.jar" />
+        <module location="modules/glassfish-ee-api.jar" />
+        <module location="modules/web-cli.jar" />
+        <module location="modules/web-core.jar" />
+        <module location="modules/web-glue.jar" />
+        <module location="modules/web-ha.jar" />
+        <module location="modules/web-embed-api.jar" />
+        <module location="modules/websecurity.jar" />
+        <module location="modules/websocket.jar" />
+        <module location="modules/weld-osgi-bundle.jar" />
+        <module location="modules/javax.faces.jar" />
+        <module location="modules/javax.json.jar" />
+        <module location="modules/jsf-connector.jar" />
+        <module location="modules/jsftemplating.jar" />
+        <module location="modules/jsonp-jaxrs.jar" />
+        <module location="modules/jstl-connector.jar" />
+        <module location="modules/javax.servlet.jsp.jstl-api.jar" />
+        <module location="modules/javax.servlet.jsp.jstl.jar" />
+        <module location="modules/weld-integration-fragment.jar" />
+        <module location="modules/weld-integration.jar" />
+        <module location="lib/appclient/weld-se-core.jar" />
+        <module location="modules/gf-weld-connector.jar" />
+        <module location="modules/jersey-container-servlet-core.jar" />
+        <module location="modules/jersey-container-servlet.jar" />
+        <module location="modules/cmp-support-ejb.jar" />
+        <module location="modules/antlr-repackaged.jar" />
+        <module location="modules/cmp-enhancer.jar" />
+        <module location="modules/cmp-model.jar" />
+        <module location="modules/cmp-utility.jar" />
+        <module location="modules/persistence-common.jar" />
+        <module location="modules/dbschema-repackaged.jar" />
+        <module location="modules/cmp-ejb-mapping.jar" />
+        <module location="modules/cmp-generator-database.jar" />
+        <module location="modules/schema2beans-repackaged.jar" />
+        <module location="modules/cmp-internal-api.jar" />
+        <module location="modules/cmp-support-sqlstore.jar" />
+        <module location="modules/entitybean-container.jar" />
+        <module location="modules/jboss-classfilewriter.jar" />
+        <module location="modules/micro-service-initializer.jar" />
+        <module location="modules/microprofile.jar" />
+        <module location="modules/microprofile-config-api.jar" />
+        <module location="modules/microprofile-config.jar" />
+        <module location="modules/microprofile-config-common.jar" />
+        <module location="modules/microprofile-metrics-api.jar" />
+        <module location="modules/microprofile-metrics.jar" />
+        <module location="modules/microprofile-health-api.jar" />
+        <module location="modules/microprofile-health.jar" />
+        <module location="modules/microprofile-fault-tolerance-api.jar" />
+        <module location="modules/microprofile-fault-tolerance.jar" />
+        <module location="modules/microprofile-jwt-auth.jar" />
+        <module location="modules/microprofile-jwt-auth-api.jar" />
+        <module location="modules/jose4j.jar" />
+        <module location="modules/hystrix-core-as.jar" />
+        <module location="modules/archaius-core-as.jar" />
+        <module location="modules/commons-configuration-repackaged.jar" />
+        <module location="modules/HdrHistogram-as.jar" />
+        <module location="modules/commons-logging-as.jar" />
+        <module location="modules/commons-lang-as.jar" />
+        <module location="modules/rxjava-as.jar" />
+        <module location="modules/microprofile-openapi-api.jar" />
+        <module location="modules/microprofile-openapi-as.jar" />
+        <module location="modules/microprofile-openapi.jar" />
+        <module location="modules/microprofile-opentracing-api.jar" />
+        <module location="modules/microprofile-opentracing.jar" />
+        <module location="modules/opentracing-api.jar"/>
+        <module location="modules/opentracing-concurrent.jar"/>
+        <module location="modules/opentracing-jaxrs2.jar"/>
+        <module location="modules/opentracing-noop.jar"/>
+        <module location="modules/opentracing-tracerresolver.jar"/>
+        <module location="modules/opentracing-util.jar"/>
+        <module location="modules/opentracing-web-servlet-filter.jar"/>
+        <module location="modules/jandex.jar" />
+        <module location="modules/shrinkwrap-api.jar" />
+        <module location="modules/jackson-dataformat-yaml.jar" />
+        <module location="modules/microprofile-rest-client-api.jar" />
+        <module location="modules/microprofile-rest-client.jar" />
+        <module location="modules/httpclient.jar" />
+        <module location="modules/httpcore.jar" />
+        <module location="modules/jboss-logging-annotations.jar" />
+        <module location="modules/resteasy-client.jar" />
+        <module location="modules/resteasy-jackson2-provider.jar" />
+        <module location="modules/resteasy-jaxb-provider.jar" />
+        <module location="modules/resteasy-jaxrs.jar" />
+        <module location="modules/resteasy-json-p-provider.jar" />
+        <module location="modules/jackson-annotations.jar" />
+        <module location="modules/snakeyaml.jar" />
+        <module location="modules/monitor-core.jar">
+            <initializer name="org.glassfish.admin.monitor.MonitoringBootstrap" exclusion-tags="user-domain" />
+        </module>
+        
+    </modules>
+</feature>
+

@@ -1,0 +1,11 @@
+#This file is a file which defines the pattern of the operand to permit, when using 
+#the wild card function in the set command. When this file does not exist in 
+#<INSTANCE_ROOT>/config, it is considered that security restrictions of the wild 
+#card function are not applied to this command. However, * cannot be used for the 
+#tail end of an operand even in this case. Keep in mind that a risk of inducing the 
+#employment mistake to the important parameter of a system which is not meant 
+#by use of this function becomes high when repealing security restrictions.
+#
+#example:
+#tpsystem.applicationGroups.*.processGroups.*.tracelevel
+#applications.j2ee-applications.Sample.Sample\.ear.*.operation().exetimeMax

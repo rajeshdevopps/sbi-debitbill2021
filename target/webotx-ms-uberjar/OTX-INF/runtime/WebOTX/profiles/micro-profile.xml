@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<profile name="micro-profile" built-in="true" appliable="user-domain,pg">
+    <features>
+        <feature>micro-profile-feature</feature>
+    </features>
+</profile>
